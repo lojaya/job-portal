@@ -36,7 +36,9 @@ Navigate to http://localhost:3000
 
 API Document endpoints
 
-Swagger UI endpoint : http://localhost:3000/swagger/api-docs
+Swagger UI endpoint: http://localhost:3000/swagger/api-docs
+
+GitHub repository: https://github.com/lojaya/job-portal
 
 
 ## Project Structure
