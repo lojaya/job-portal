@@ -1,0 +1,2076 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {},
+    "title": "Aureus Job Portal",
+    "version": "1.0.0"
+  },
+  "basePath": "localhost",
+  "paths": {
+    "/api/auth/signup": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "properties": {
+                "email": {
+                  "example": "iksandi@lojaya.com",
+                  "type": "string"
+                },
+                "firstName": {
+                  "example": "Iksandi",
+                  "type": "string"
+                },
+                "lastName": {
+                  "example": "Lojaya",
+                  "type": "string"
+                },
+                "password": {
+                  "example": "12345678",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - Register New User",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "email": {
+                      "example": "iksandi@lojaya.co",
+                      "type": "string"
+                    },
+                    "firstName": {
+                      "example": "Iksandi",
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "example": "Lojaya",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "success registering user!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Failed - Email already registered",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "email iksandi@lojaya.com is already registered",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 400,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ],
+        "description": "# Register User\n\nThis endpoint allows user to register themself.\n\n## Request\n\n`POST /api/auth/signup`\n\n### Request Body\n\n- `email` (string, required): The email of the user.\n- `password` (string, required): The password of the user.\n- `firstName` (string, required): The first name of the user.\n- `lastName` (string, required): The last name of the user.\n    \n\nExample:\n\n``` json\n{\n    \"firstName\": \"Iksandi\",\n    \"lastName\": \"Lojaya\",\n    \"email\": \"user@example.com\",\n    \"password\": \"********\"\n}\n\n ```\n\n## Response\n\n- `status` (integer): The status of the response. A status of 200 indicates success, while 4xx or 5xx indicates a failure.\n- `message` (string): A message providing additional information about the sign-in process.\n- `data` (object): An object containing the registered user's details, including email, first name, and last name\n    \n\n### Success Response Example\n\n``` json\n{\n    \"message\": \"success registering user!\",\n    \"status\": 200,\n    \"data\": {\n        \"email\": \"iksandi@lojaya.com\",\n        \"firstName\": \"Iksandi\",\n        \"lastName\": \"Lojaya\"\n    }\n}\n\n ```\n\n### Failure Response Example\n\n``` json\n{\n    \"status\": 400,\n    \"message\": \"email iksandi@lojaya.com is already registered\"\n}\n\n ```",
+        "operationId": "registerUser",
+        "summary": "Register User"
+      }
+    },
+    "/api/auth/signin": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "properties": {
+                "email": {
+                  "example": "iksandi@lojaya.com",
+                  "type": "string"
+                },
+                "password": {
+                  "example": "12345678",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - Sign In Success",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "expiresIn": {
+                      "example": 1704539516,
+                      "type": "number"
+                    },
+                    "refresh": {
+                      "example": "5cd6337533787f69ff1a650ebb8ed56b6a094b7bed964590df9a6a5e2c2a4843ea6c46fc05f1df445378dccad261054ef147de60bff8a3d468207e1527699a8d",
+                      "type": "string"
+                    },
+                    "token": {
+                      "example": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVXNlciIsImZ1bGxOYW1lIjoiSWtzYW5kaSBMb2pheWEiLCJpYXQiOjE3MDQ1Mzg5MTYsInN1YiI6IjY1OTkyYmEzOWYxZDAwMjRiNDQ1OWUzYyIsImV4cCI6MTcwNDUzOTUxNn0.euBr6h6eXB541o053wlJlmccrYoevq8rQQX8Lh0oSPs",
+                      "type": "string"
+                    },
+                    "user": {
+                      "properties": {
+                        "email": {
+                          "example": "iksandi@lojaya.com",
+                          "type": "string"
+                        },
+                        "fullName": {
+                          "example": "Iksandi Lojaya",
+                          "type": "string"
+                        },
+                        "id": {
+                          "example": "659932843a4f246a3922edbf",
+                          "type": "string"
+                        },
+                        "role": {
+                          "example": "User",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "signing in success",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "Failed - Wrong email or password)",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "wrong email or password",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 403,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ],
+        "description": "# Sign In\n\nThis endpoint allows users to sign in by providing their email and password.\n\n## Request\n\n`POST /api/auth/signin`\n\n### Request Body\n\n- `email` (string, required): The email of the user.\n- `password` (string, required): The password of the user.\n    \n\nExample:\n\n``` json\n{\n    \"email\": \"user@example.com\",\n    \"password\": \"********\"\n}\n\n ```\n\n## Response\n\n- `status` (integer): The status of the response. A status of 200 indicates success, while 4xx or 5xx indicates a failure.\n- `message` (string): A message providing additional information about the sign-in process.\n- `data` (object): An object containing token, expires countdown, refresh token, and the registered user's details, including id, fullName, email and role\n    \n\n### Success Response Example\n\n``` json\n{\n    \"message\": \"signing in success\",\n    \"status\": 200,\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiJ9...\",\n        \"expiresIn\": 1704539516,\n        \"refresh\": \"5cd6337533787f69ff1a650ebb8ed56b...\",\n        \"user\": {\n            \"id\": \"659932843a4f246a3922edbf\",\n            \"fullName\": \"Example User\",\n            \"email\": \"user@example.com\",\n            \"role\": \"User\"\n        }\n    }\n}\n\n ```\n\n### Failure Response Example\n\n``` json\n{\n    \"status\": 403,\n    \"message\": \"wrong email or password\"\n}\n\n ```",
+        "operationId": "signIn",
+        "summary": "Sign In"
+      }
+    },
+    "/api/auth/refresh": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "properties": {
+                "refreshToken": {
+                  "example": "68ca44b3b5cbd9ecf53257608bd8bdd1b378c327a4568efda1615605b4c5c5e3590f3be35b126e76cf87bafa6e14ec6bffe035aa970a624a39e712c262a41e33",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - Refreshing Access Token",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "expiresIn": {
+                      "example": 1704542047,
+                      "type": "number"
+                    },
+                    "refresh": {
+                      "example": "68ca44b3b5cbd9ecf53257608bd8bdd1b378c327a4568efda1615605b4c5c5e3590f3be35b126e76cf87bafa6e14ec6bffe035aa970a624a39e712c262a41e33",
+                      "type": "string"
+                    },
+                    "token": {
+                      "example": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVXNlciIsImZ1bGxOYW1lIjoiSWtzYW5kaSBMb2pheWEiLCJpYXQiOjE3MDQ1NDE0NDcsInN1YiI6IjY1OTkyYmEzOWYxZDAwMjRiNDQ1OWUzYyIsImV4cCI6MTcwNDU0MjA0N30.DRqoG9WCUXklozS2IZd5BudTfOliyY0NMjVMZfpwqDo",
+                      "type": "string"
+                    },
+                    "user": {
+                      "properties": {
+                        "email": {
+                          "example": "iksandi@lojaya.com",
+                          "type": "string"
+                        },
+                        "fullName": {
+                          "example": "Iksandi Lojaya",
+                          "type": "string"
+                        },
+                        "id": {
+                          "example": "659932843a4f246a3922edbf",
+                          "type": "string"
+                        },
+                        "role": {
+                          "example": "User",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "access token successfully renewed!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Failure - Token missmatch",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "access token doesn't match with the given refresh token!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 400,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ],
+        "description": "# Refresh Access Token\n\nThis endpoint allows the client to refresh their access user using refresh token.\n\n## Request\n\n`POST /api/auth/refresh`\n\n### Request Body\n\n- `refreshToken` (string, required): The refresh token of the user.\n    \n\nExample:\n\n``` json\n{\n    \"refreshToken\": \"68ca44b3b5cbd9ecf53257608bd8bdd1b378c327a4568efda1615605b4c5c5e3590f3be35b126e76cf87bafa6e14ec6bffe035aa970a624a39e712c262a41e33\"\n}\n\n ```\n\n## Response\n\n- `status` (integer): The status of the response. A status of 200 indicates success, while 4xx or 5xx indicates a failure.\n- `message` (string): A message providing additional information about the sign-in process.\n- `data` (object): An object containing token, expires countdown, refresh token, and the registered user's details, including id, fullName, email and role\n    \n\n``` json\n{\n    \"message\": \"access token successfully renewed!\",\n    \"status\": 200,\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVXNlciIs...\", \n        \"expiresIn\": 1704542047,\n        \"refresh\": \"68ca44b3b5cbd9ecf53257608bd8bdd1b378c327a4568efda1615605b4c5c5e3590f3be35b126e76cf87bafa6e14ec6bffe035aa970a624a39e712c262a41e33\",\n        \"user\": {\n            \"id\": \"659932843a4f246a3922edbf\",\n            \"fullName\": \"Iksandi Lojaya\",\n            \"email\": \"iksandi@lojaya.com\",\n            \"role\": \"User\"\n        }\n    }\n}\n\n ```\n\n### Failure Response Examples\n\n``` json\n{\n    \"status\": 400,\n    \"message\": \"access token doesn't match with the given refresh token!\"\n}\n\n ```\n\n``` json\n{\n    \"status\": 400,\n    \"message\": \"refresh token is not found or already expired\"\n}\n\n ```",
+        "operationId": "refreshAccessToken",
+        "summary": "Refresh Access Token"
+      }
+    },
+    "/api/auth/destroy": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "properties": {
+                "refreshToken": {
+                  "example": "5cd6337533787f69ff1a650ebb8ed56b6a094b7bed964590df9a6a5e2c2a4843ea6c46fc05f1df445378dccad261054ef147de60bff8a3d468207e1527699a8d",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - Refresh Token Destroyed",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "session successfully destroyed",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Failure - Refresh token either not found or expired",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "refresh token is not found or already expired",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 400,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ],
+        "description": "# Destroy Session\n\nThis endpoint allows destroy their refresh token session by providing current refresh token.\n\n## Request\n\n`POST /api/auth/destroy`\n\nRequiring Authentication Bearer Token\n\n### Request Body\n\n- refreshToken (string, required): The refresh token used to identify the session to be destroyed.\n    \n\nExample:\n\n``` json\n{\n    \"email\": \"user@example.com\",\n    \"password\": \"********\"\n}\n\n ```\n\n### Response\n\n- `status` (integer): The status of the response. A status of 200 indicates success, while 4xx or 5xx indicates a failure.\n- message (string): A message indicating the result of the session destruction.\n    \n\n### Success Response Example\n\n``` json\n{\n    \"status\": 200,\n    \"message\": \"session successfully destroyed\"\n}\n\n ```\n\n### Failure Response Example\n\n``` json\n{\n    \"status\": 400,\n    \"message\": \"refresh token is not found or already expired\"\n}\n\n ```",
+        "operationId": "destroySession",
+        "summary": "Destroy Session"
+      }
+    },
+    "/api/file/upload": {
+      "post": {
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "format": "binary",
+            "in": "formData",
+            "name": "images",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Upload",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "example": [
+                    {
+                      "file": "http://localhost:3000/uploads/screenshot-2023-05-2-06e97309bc1eda09f486440d2b339573.png"
+                    },
+                    {
+                      "file": "http://localhost:3000/uploads/screenshot-2023-05-2-284d6e4099aedcada4367e28fe3f00b2.png"
+                    },
+                    {
+                      "file": "http://localhost:3000/uploads/screenshot-2023-06-0-61c5486ba8d163bd96b6dda74ab59b7b.png"
+                    }
+                  ],
+                  "items": {
+                    "properties": {
+                      "file": {
+                        "example": "http://localhost:3000/uploads/screenshot-2023-05-2-06e97309bc1eda09f486440d2b339573.png",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "message": {
+                  "example": "file uploaded successfully",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Failed",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "File Limit",
+            "headers": {
+              "Transfer-Encoding": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "description": "### File Image Upload\n\nThis endpoint allows the user to upload images as files. The request should be sent as an HTTP POST to `/api/file/upload`.\n\n#### Request Body\n\nThe request body should be of form-data type, and it should contain a key \"images\" with the type \"file\". This key represents the image file to be uploaded.\n\n- `images` (file): Represents the image file to be uploaded.\n    \n\n#### Response\n\n- `message`: A message indicating the status of the file upload.\n- `status`: The status code of the response.\n- `data`: An array containing the URLs of the uploaded files.\n    \n\n#### Example Response\n\n``` json\n{\n    \"message\": \"file uploaded successfully\",\n    \"status\": 200,\n    \"data\": [\n        {\n            \"file\": \"http://localhost:3000/uploads/screenshot-2023-05-2-06e97309bc1eda09f486440d2b339573.png\"\n        },\n        {\n            \"file\": \"http://localhost:3000/uploads/screenshot-2023-05-2-284d6e4099aedcada4367e28fe3f00b2.png\"\n        },\n        {\n            \"file\": \"http://localhost:3000/uploads/screenshot-2023-06-0-61c5486ba8d163bd96b6dda74ab59b7b.png\"\n        }\n    ]\n}\n\n ```",
+        "operationId": "fileImageUpload",
+        "summary": "File Image Upload"
+      }
+    },
+    "/api/jobs": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "orderBy",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "orderAsc",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "applied",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "example": [
+                    {
+                      "_id": "6599451615ee83b8bfcb1118",
+                      "company": "Aureus Group",
+                      "createdAt": "2024-01-06T12:18:30.741Z",
+                      "isActive": true,
+                      "isApplied": true,
+                      "salary": {
+                        "currency": "SGD",
+                        "type": "fixed",
+                        "value": "6000"
+                      },
+                      "title": "Back-End Developer"
+                    },
+                    {
+                      "_id": "659946b315ee83b8bfcb111a",
+                      "company": "Aureus Group",
+                      "createdAt": "2024-01-06T12:25:23.117Z",
+                      "isActive": true,
+                      "isApplied": false,
+                      "salary": {
+                        "currency": "SGD",
+                        "type": "ranged",
+                        "value": "6000"
+                      },
+                      "title": "Front-End Developer"
+                    },
+                    {
+                      "_id": "659946d315ee83b8bfcb111c",
+                      "company": "Aureus Group",
+                      "createdAt": "2024-01-06T12:25:55.196Z",
+                      "isActive": false,
+                      "isApplied": false,
+                      "salary": {
+                        "currency": "SGD",
+                        "type": "ranged",
+                        "value": "6000-7000"
+                      },
+                      "title": "Full-Stack Developer"
+                    },
+                    {
+                      "_id": "6599497915ee83b8bfcb1126",
+                      "company": "Aureus Group",
+                      "createdAt": "2024-01-06T12:37:13.595Z",
+                      "isActive": true,
+                      "isApplied": false,
+                      "salary": {
+                        "currency": "SGD",
+                        "type": "ranged",
+                        "value": "6000-7000"
+                      },
+                      "title": "Full Stack Developer 2"
+                    },
+                    {
+                      "_id": "6599497b15ee83b8bfcb1128",
+                      "company": "Aureus Group",
+                      "createdAt": "2024-01-06T12:37:15.033Z",
+                      "isActive": true,
+                      "isApplied": false,
+                      "salary": {
+                        "currency": "SGD",
+                        "type": "ranged",
+                        "value": "6000-7000"
+                      },
+                      "title": "Full Stack Developer 3"
+                    },
+                    {
+                      "_id": "6599497c15ee83b8bfcb112a",
+                      "company": "Aureus Group",
+                      "createdAt": "2024-01-06T12:37:16.104Z",
+                      "isActive": true,
+                      "isApplied": false,
+                      "salary": {
+                        "currency": "SGD",
+                        "type": "ranged",
+                        "value": "6000-7000"
+                      },
+                      "title": "Full Stack Developer 5"
+                    }
+                  ],
+                  "items": {
+                    "properties": {
+                      "_id": {
+                        "example": "6599451615ee83b8bfcb1118",
+                        "type": "string"
+                      },
+                      "company": {
+                        "example": "Aureus Group",
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "example": "2024-01-06T12:18:30.741Z",
+                        "type": "string"
+                      },
+                      "isActive": {
+                        "example": true,
+                        "type": "boolean"
+                      },
+                      "isApplied": {
+                        "example": true,
+                        "type": "boolean"
+                      },
+                      "salary": {
+                        "properties": {
+                          "currency": {
+                            "example": "SGD",
+                            "type": "string"
+                          },
+                          "type": {
+                            "example": "fixed",
+                            "type": "string"
+                          },
+                          "value": {
+                            "example": "6000",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "title": {
+                        "example": "Back-End Developer",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "message": {
+                  "example": "success listing jobs!",
+                  "type": "string"
+                },
+                "meta": {
+                  "properties": {
+                    "count": {
+                      "example": 6,
+                      "type": "number"
+                    },
+                    "orderAsc": {
+                      "example": true,
+                      "type": "boolean"
+                    },
+                    "orderBy": {
+                      "example": "createdAt",
+                      "type": "string"
+                    },
+                    "page": {
+                      "example": 1,
+                      "type": "number"
+                    },
+                    "pageSize": {
+                      "example": 10,
+                      "type": "number"
+                    },
+                    "pages": {
+                      "example": 1,
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Jobs"
+        ],
+        "description": "# Retrieve Jobs\n\nThis endpoint retrieves a list of jobs with the specified page size, page number, and order.\n\n## Request\n\n### Query Parameters\n\n- `pageSize` (number): The number of jobs to be displayed per page. Default to 10.\n- `page` (number): The page number of the job list to be retrieved. Default to 1.\n- `orderBy` (string): The field by which the jobs are ordered. Default to `createdAt`\n- `orderAsc` (boolean): Indicates whether the jobs are ordered in ascending order. Default to false.\n- `search` (string): Search string, minimun 3 characters.\n- `status` (string): The field by which the users are ordered. Available fields (id, email, firstName, lastName, role, createdAt, updatedAt). Default to `createdAt`\n- `orderAsc` (boolean): Indicates whether the users are ordered in ascending order. Default to false.\n- `search` (string): Search string, minimun 3 characters.\n    \n\n## Response\n\n- `message` (string): A message related to the response.\n- `status` (integer): The status of the response.\n- `data` (array): An array of job objects containing details such as ID, title, company, salary, activity status, creation date, and application status.\n    - `_id` (string): The unique identifier of the job.\n    - `title` (string): The title of the job.\n    - `company` (string): The company offering the job.\n    - `salary` (object): Details about the salary offered for the job.\n        - `currency` (string): The currency in which the salary is provided.\n        - `type` (string): The type of salary (e.g., hourly, monthly).\n        - `value` (string): The value of the salary.\n    - `isActive` (boolean): Indicates whether the job is active.\n    - `createdAt` (string): The date and time when the job was created.\n    - `isApplied` (boolean): Indicates whether the job has been applied for.\n- `meta` (object): Additional metadata about the response.\n    - `page` (integer): The current page number.\n    - `count` (integer): The total count of jobs.\n    - `pages` (integer): The total number of pages based on the page size and total count.\n    - `pageSize` (integer): The number of items included in each page.\n    - `orderBy` (string): The field by which the results are ordered.\n    - `orderAsc` (boolean): Indicates whether the results are ordered in ascending or descending order.\n\nExample:\n\n``` json\n{\n    \"message\": \"\",\n    \"status\": 0,\n    \"data\": [\n        {\n            \"_id\": \"\",\n            \"title\": \"\",\n            \"company\": \"\",\n            \"salary\": {\n                \"currency\": \"\",\n                \"type\": \"\",\n                \"value\": \"\"\n            },\n            \"isActive\": true,\n            \"createdAt\": \"\",\n            \"isApplied\": true\n        }\n    ],\n    \"meta\": {\n        \"page\": 0,\n        \"count\": 0,\n        \"pages\": 0,\n        \"pageSize\": 0,\n        \"orderBy\": \"\",\n        \"orderAsc\": true\n    }\n}\n\n ```",
+        "operationId": "getAllJobs",
+        "summary": "Get All Jobs"
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "properties": {
+                "company": {
+                  "example": "Aureus Group",
+                  "type": "string"
+                },
+                "description": {
+                  "example": "We are looking for a qualified Backend Developer to join our Team. He/She is responsible for building the‘server-side’ of the project's web applications. He/She should also be able to develop and maintainfunctional and stable web applications to ensure system consistency and improve user experience.",
+                  "type": "string"
+                },
+                "images": {
+                  "example": [
+                    {
+                      "title": "Example",
+                      "url": "https://picsum.photos/200/300"
+                    }
+                  ],
+                  "items": {
+                    "properties": {
+                      "title": {
+                        "example": "Example",
+                        "type": "string"
+                      },
+                      "url": {
+                        "example": "https://picsum.photos/200/300",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "salary": {
+                  "properties": {
+                    "currency": {
+                      "example": "SGD",
+                      "type": "string"
+                    },
+                    "type": {
+                      "example": "ranged",
+                      "type": "string"
+                    },
+                    "value": {
+                      "example": "6000-7000",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "title": {
+                  "example": "Full Stack Developer 7",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - Create New Job",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "_id": {
+                      "example": "6599451615ee83b8bfcb1118",
+                      "type": "string"
+                    },
+                    "company": {
+                      "example": "Aureus Group",
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "example": "2024-01-06T12:18:30.741Z",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "We are looking for a qualified Backend Developer to join our Team. He/She is responsible for building the‘server-side’ of the project's web applications. He/She should also be able to develop and maintainfunctional and stable web applications to ensure system consistency and improve user experience.",
+                      "type": "string"
+                    },
+                    "images": {
+                      "example": [
+                        {
+                          "title": "Example",
+                          "url": "https://picsum.photos/200/300"
+                        }
+                      ],
+                      "items": {
+                        "properties": {
+                          "title": {
+                            "example": "Example",
+                            "type": "string"
+                          },
+                          "url": {
+                            "example": "https://picsum.photos/200/300",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "isActive": {
+                      "example": true,
+                      "type": "boolean"
+                    },
+                    "salary": {
+                      "properties": {
+                        "currency": {
+                          "example": "SGD",
+                          "type": "string"
+                        },
+                        "type": {
+                          "example": "fixed",
+                          "type": "string"
+                        },
+                        "value": {
+                          "example": "6000",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "title": {
+                      "example": "Back-End Developer",
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "example": "2024-01-06T12:18:30.741Z",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "job created sucessfully",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Failed - Several fields missing",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "body": {
+                      "example": [
+                        {
+                          "field": "title",
+                          "label": "Job Title",
+                          "message": "The 'Job Title' field is required.",
+                          "type": "required"
+                        },
+                        {
+                          "field": "description",
+                          "label": "Job Description",
+                          "message": "The 'Job Description' field is required.",
+                          "type": "required"
+                        },
+                        {
+                          "field": "company",
+                          "label": "Company",
+                          "message": "The 'Company' field is required.",
+                          "type": "required"
+                        }
+                      ],
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "example": "title",
+                            "type": "string"
+                          },
+                          "label": {
+                            "example": "Job Title",
+                            "type": "string"
+                          },
+                          "message": {
+                            "example": "The 'Job Title' field is required.",
+                            "type": "string"
+                          },
+                          "type": {
+                            "example": "required",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "payload/parameter validation error",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 400,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "Failed - Forbidden Access",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Forbidden access",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 403,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Jobs"
+        ],
+        "description": "# Create a New Job\n\nThis endpoint allows you to create a new job posting.\n\n## Request\n\n`POST /api/jobs`\n\n### Request Body\n\n- `title` (string, required): The title of the job.\n- `description` (string, required): Description of the job.\n- `company` (string, required): Name of the company.\n- `salary` (object, optional): Details about the salary.\n    \n    - `currency` (string, required): Currency of the salary.\n    - `type` (string, required): Type of salary (e.g., fixed, ranged, equity).\n    - `value` (number, required): Numerical value of the salary.\n- `images` (array, optional): Array of images associated with the job.\n    \n    - `title` (string, optional): Title of the image.\n        \n    - `url` (string, required): URL of the image.\n\n### Response\n\n- `message` (string): Describes the status of the request.\n- `status` (number): HTTP status code.\n- `data` (object): Data related to the job posting.\n    - `title` (string): The title of the job.\n    - `description` (string): Description of the job.\n    - `company` (string): Name of the company.\n    - `salary` (object): Details about the salary.\n        - `currency` (string): Currency of the salary.\n        - `type` (string): Type of salary (e.g., fixed, ranged, equity).\n        - `value` (number): Numerical value of the salary.\n    - `images` (array): Array of images associated with the job.\n        - `title` (string): Title of the image.\n        - `url` (string): URL of the image.\n    - `isActive` (boolean): Indicates if the job posting is active.\n    - `_id` (string): Unique identifier for the job posting.\n    - `createdAt` (string): Date and time when the job posting was created.\n    - `updatedAt` (string): Date and time when the job posting was last updated.\n\n#### Examples\n\n##### Request\n\n``` json\n{\n    \"title\": \"Back-End Developer\",\n    \"description\": \"We are looking for a qualified Backend Developer...\",\n    \"company\": \"Aureus Group\",\n    \"salary\": {\n        \"currency\": \"SGD\",\n        \"type\": \"fixed\",\n        \"value\": 6000\n    },\n    \"images\": [\n        {\n            \"title\": \"Example\",\n            \"url\": \"https://picsum.photos/200/300\"\n        }\n    ]\n}\n\n ```\n\n### Response\n\n#### Success Response Example\n\n``` json\n{\n    \"message\": \"job created sucessfully\",\n    \"status\": 200,\n    \"data\": {\n        \"title\": \"Back-End Developer\",\n        \"description\": \"We are looking for a qualified Backend Developer...\",\n        \"company\": \"Aureus Group\",\n        \"salary\": {\n            \"currency\": \"SGD\",\n            \"type\": \"fixed\",\n            \"value\": \"6000\"\n        },\n        \"images\": [\n            {\n                \"title\": \"Example\",\n                \"url\": \"https://picsum.photos/200/300\"\n            }\n        ],\n        \"isActive\": true,\n        \"_id\": \"6599451615ee83b8bfcb1118\",\n        \"createdAt\": \"2024-01-06T12:18:30.741Z\",\n        \"updatedAt\": \"2024-01-06T12:18:30.741Z\"\n    }\n}\n\n ```\n\n#### Failed Response Example\n\n``` json\n{\n    \"status\": 403,\n    \"message\": \"Forbidden access\"\n}\n\n ```\n\n``` json\n{\n    \"message\": \"payload/parameter validation error\",\n    \"data\": {\n        \"body\": [\n            {\n                \"type\": \"required\",\n                \"message\": \"The 'Job Title' field is required.\",\n                \"field\": \"title\",\n                \"label\": \"Job Title\"\n            },\n            {\n                \"type\": \"required\",\n                \"message\": \"The 'Job Description' field is required.\",\n                \"field\": \"description\",\n                \"label\": \"Job Description\"\n            },\n            {\n                \"type\": \"required\",\n                \"message\": \"The 'Company' field is required.\",\n                \"field\": \"company\",\n                \"label\": \"Company\"\n            }\n        ]\n    },\n    \"status\": 400\n}\n\n ```",
+        "operationId": "createNewJob",
+        "summary": "Create New Job"
+      }
+    },
+    "/api/jobs/{jobId}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "jobId",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "job is deleted sucessfully!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Failed - ID Malformed",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "params": {
+                      "example": [
+                        {
+                          "actual": "6598ca99314273b13f63da99f",
+                          "expected": "objectId",
+                          "field": "id",
+                          "message": "The id must be an objectId",
+                          "type": "objectId"
+                        }
+                      ],
+                      "items": {
+                        "properties": {
+                          "actual": {
+                            "example": "6598ca99314273b13f63da99f",
+                            "type": "string"
+                          },
+                          "expected": {
+                            "example": "objectId",
+                            "type": "string"
+                          },
+                          "field": {
+                            "example": "id",
+                            "type": "string"
+                          },
+                          "message": {
+                            "example": "The id must be an objectId",
+                            "type": "string"
+                          },
+                          "type": {
+                            "example": "objectId",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "payload/parameter validation error",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 400,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Failed - Not Found",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Failed to remove job, data is not found!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 404,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Jobs"
+        ],
+        "description": "# Delete A Job by ID\n\nThis endpoint sends an HTTP DELETE request to to delete a specific job. The request does not include a request body.\n\n## Request\n\n`DELETE /api/jobs/:jobId`\n\n### Request Parameters\n\n- `jobId` (path parameter): The ID of the job for which the information is requested. Should be an onjectID / BSON.\n    \n\n### Response\n\n- `message` (string): Describes the status of the request.\n- `status` (number): HTTP status code\n    \n\n#### Examples\n\n#### Success Response Example\n\n``` json\n{\n    \"message\": \"job is deleted sucessfully!\",\n    \"status\": 200\n}\n\n ```\n\n#### Failed Response Example\n\n``` json\n{\n    \"status\": 403,\n    \"message\": \"Forbidden access\"\n}\n\n ```\n\n``` json\n{\n    \"status\": 404,\n    \"message\": \"Failed to get job info, data not found!\"\n}\n\n ```\n\n``` json\n{\n    \"message\": \"payload/parameter validation error\",\n    \"data\": {\n        \"params\": [\n            {\n                \"message\": \"The id must be an objectId\",\n                \"field\": \"id\",\n                \"type\": \"objectId\",\n                \"expected\": \"objectId\",\n                \"actual\": \"6598ca99314273b13f63da99f\"\n            }\n        ]\n    },\n    \"status\": 400\n}\n\n ```",
+        "operationId": "deleteJobById",
+        "summary": "Delete Job By ID"
+      },
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "_id": {
+                      "example": "6599451615ee83b8bfcb1118",
+                      "type": "string"
+                    },
+                    "applicantCount": {
+                      "example": 0,
+                      "type": "number"
+                    },
+                    "company": {
+                      "example": "Aureus Group",
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "example": "2024-01-06T12:18:30.741Z",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "We are looking for a qualified Backend Developer to join our Team. He/She is responsible for building the‘server-side’ of the project's web applications. He/She should also be able to develop and maintainfunctional and stable web applications to ensure system consistency and improve user experience.",
+                      "type": "string"
+                    },
+                    "images": {
+                      "example": [
+                        {
+                          "title": "Example",
+                          "url": "https://picsum.photos/200/300"
+                        }
+                      ],
+                      "items": {
+                        "properties": {
+                          "title": {
+                            "example": "Example",
+                            "type": "string"
+                          },
+                          "url": {
+                            "example": "https://picsum.photos/200/300",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "isActive": {
+                      "example": true,
+                      "type": "boolean"
+                    },
+                    "isApplied": {
+                      "example": false,
+                      "type": "boolean"
+                    },
+                    "salary": {
+                      "properties": {
+                        "currency": {
+                          "example": "SGD",
+                          "type": "string"
+                        },
+                        "type": {
+                          "example": "fixed",
+                          "type": "string"
+                        },
+                        "value": {
+                          "example": "6000",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "title": {
+                      "example": "Back-End Developer",
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "example": "2024-01-06T12:18:30.741Z",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "success get job info!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Failed to get job info, data not found!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 404,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Jobs"
+        ],
+        "description": "# Get Job by ID\n\nThis endpoint retrieves the information of a specific job based on the provided job ID.\n\n## Request\n\n### Request Parameters\n\n- `jobId` (path parameter): The ID of the job for which the information is requested. Should be an onjectID / BSON.\n    \n\n### Response\n\n- `message` (string): A message indicating the status of the request.\n- `status` (number): The status code of the response.\n- `data` (object): An object containing the details of the job.\n    \n    - `_id` (string): The unique ID of the job.\n    - `title` (string): The title of the job.\n    - `description` (string): A description of the job.\n    - `company` (string): The name of the company offering the job.\n    - `salary` (object): An object containing salary details.\n        \n        - `currency` (string): The currency in which the salary is denominated.\n        - `type` (string): The type of salary (e.g., fixed, ranged, equity).\n            \n        - `value` (string): The value of the salary.\n    - `images` (array): An array of objects containing image details related to the job.\n        - `title` (string): The title of the image.\n        - `url` (string): The URL of the image.\n    - `isActive` (boolean): Indicates whether the job is active.\n    - `createdAt` (string): The date and time when the job was created.\n    - `updatedAt` (string): The date and time when the job was last updated.\n    - `isApplied` (boolean): Indicates whether the user has applied for the job.\n    - `applicantCount` (number): The count of applicants for the job.\n\n#### Success Response Example\n\n``` json\n{\n    \"message\": \"success get job info!\",\n    \"status\": 200,\n    \"data\": {\n        \"_id\": \"6599451615ee83b8bfcb1118\",\n        \"title\": \"Back-End Developer\",\n        \"description\": \"We are looking for a qualified Backend Developer to join our Team...\",\n        \"company\": \"Aureus Group\",\n        \"salary\": {\n            \"currency\": \"SGD\",\n            \"type\": \"fixed\",\n            \"value\": \"6000\"\n        },\n        \"images\": [\n            {\n                \"title\": \"Example\",\n                \"url\": \"https://picsum.photos/200/300\"\n            }\n        ],\n        \"isActive\": true,\n        \"createdAt\": \"2024-01-06T12:18:30.741Z\",\n        \"updatedAt\": \"2024-01-06T12:18:30.741Z\",\n        \"isApplied\": false,\n        \"applicantCount\": 0\n    }\n}\n\n ```\n\n#### Failed Response Example\n\n``` json\n{\n    \"status\": 404,\n    \"message\": \"Failed to get job info, data not found!\"\n}\n\n ```\n\n``` json\n{\n    \"status\": 401,\n    \"message\": \"\\\"exp\\\" claim timestamp check failed\",\n    \"data\": {\n        \"code\": \"ERR_JWT_EXPIRED\",\n        \"name\": \"JWTExpired\",\n        \"claim\": \"exp\",\n        \"reason\": \"check_failed\"\n    }\n}\n\n ```\n\n``` json\n{\n    \"message\": \"payload/parameter validation error\",\n    \"data\": {\n        \"params\": [\n            {\n                \"message\": \"The id must be an objectId\",\n                \"field\": \"id\",\n                \"type\": \"objectId\",\n                \"expected\": \"objectId\",\n                \"actual\": \"6598ca99314273b13f63da99f\"\n            }\n        ]\n    },\n    \"status\": 400\n}\n\n ```",
+        "operationId": "getJobById",
+        "summary": "Get Job by ID"
+      },
+      "patch": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "properties": {
+                "company": {
+                  "example": "Aureus Group",
+                  "type": "string"
+                },
+                "description": {
+                  "example": "We are looking for a qualified Backend Developer to join our Team. He/She is responsible for building the‘server-side’ of the project's web applications. He/She should also be able to develop and maintainfunctional and stable web applications to ensure system consistency and improve user experience.",
+                  "type": "string"
+                },
+                "images": {
+                  "example": [
+                    {
+                      "title": "Example",
+                      "url": "https://picsum.photos/200/300"
+                    }
+                  ],
+                  "items": {
+                    "properties": {
+                      "title": {
+                        "example": "Example",
+                        "type": "string"
+                      },
+                      "url": {
+                        "example": "https://picsum.photos/200/300",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "salary": {
+                  "properties": {
+                    "currency": {
+                      "example": "SGD",
+                      "type": "string"
+                    },
+                    "type": {
+                      "example": "ranged",
+                      "type": "string"
+                    },
+                    "value": {
+                      "example": "6000-7000",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "title": {
+                  "example": "Full Stack Developer",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - Change some data",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "_id": {
+                      "example": "659946d315ee83b8bfcb111c",
+                      "type": "string"
+                    },
+                    "company": {
+                      "example": "Aureus Group",
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "example": "2024-01-06T12:25:55.196Z",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "We are looking for a qualified Backend Developer to join our Team. He/She is responsible for building the‘server-side’ of the project's web applications. He/She should also be able to develop and maintainfunctional and stable web applications to ensure system consistency and improve user experience.",
+                      "type": "string"
+                    },
+                    "images": {
+                      "example": [
+                        {
+                          "title": "Example",
+                          "url": "https://picsum.photos/200/300"
+                        }
+                      ],
+                      "items": {
+                        "properties": {
+                          "title": {
+                            "example": "Example",
+                            "type": "string"
+                          },
+                          "url": {
+                            "example": "https://picsum.photos/200/300",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "isActive": {
+                      "example": false,
+                      "type": "boolean"
+                    },
+                    "salary": {
+                      "properties": {
+                        "currency": {
+                          "example": "SGD",
+                          "type": "string"
+                        },
+                        "type": {
+                          "example": "ranged",
+                          "type": "string"
+                        },
+                        "value": {
+                          "example": "6000-7000",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "title": {
+                      "example": "Full-Stack Developer",
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "example": "2024-01-06T12:28:12.832Z",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "success update job info!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Jobs"
+        ],
+        "description": "# Update A Job by ID\n\nThis endpoint allows you to update a job posting by its ID via a PATCH request.\n\n## Request\n\n`PATCH /api/jobs/:jobId`\n\n### Request Parameters\n\n- `jobId` (path parameter): The ID of the job for which the information is requested. Should be an onjectID / BSON.\n    \n\n### Request Body\n\n- `title` (string, optional): The title of the job.\n- `description` (string, optional): Description of the job.\n- `company` (string, optional): Name of the company.\n- `isActive` (boolean, optional): A flag to indicate the job is active or not.\n- `salary` (object, optional): Details about the salary.\n    - `currency` (string, required): Currency of the salary.\n    - `type` (string, required): Type of salary (e.g., fixed, ranged, equity).\n    - `value` (number, required): Numerical value of the salary.\n- `images` (array, optional): Array of images associated with the job.\n    - `title` (string, optional): Title of the image.\n    - `url` (string, required): URL of the image.\n\n### Response\n\n- `message` (string): Describes the status of the request.\n- `status` (number): HTTP status code.\n- `data` (object): Data related to the job posting.\n    - `title` (string): The title of the job.\n    - `description` (string): Description of the job.\n    - `company` (string): Name of the company.\n    - `salary` (object): Details about the salary.\n        - `currency` (string): Currency of the salary.\n        - `type` (string): Type of salary (e.g., fixed, ranged, equity).\n        - `value` (number): Numerical value of the salary.\n    - `images` (array): Array of images associated with the job.\n        - `title` (string): Title of the image.\n        - `url` (string): URL of the image.\n    - `isActive` (boolean): Indicates if the job posting is active.\n    - `_id` (string): Unique identifier for the job posting.\n    - `createdAt` (string): Date and time when the job posting was created.\n    - `updatedAt` (string): Date and time when the job posting was last updated.\n\n#### Examples\n\n##### Request\n\n``` json\n{\n    \"title\": \"Full Stack Developer\",\n    \"description\": \"We are looking for a qualified Backend Developer to join our Team. He/She is responsible for building the‘server-side’ of the project's web applications. He/She should also be able to develop and maintainfunctional and stable web applications to ensure system consistency and improve user experience.\",\n    \"company\": \"Aureus Group\",\n    \"salary\": {\n        \"currency\": \"SGD\",\n        \"type\": \"ranged\",\n        \"value\": \"6000-7000\"\n    },\n    \"images\": [\n        {\n            \"title\": \"Example\",\n            \"url\": \"https://picsum.photos/200/300\"\n        }\n    ]\n}\n\n ```\n\n### Response\n\n#### Success Response Example\n\n``` json\n{\n    \"message\": \"success update job info!\",\n    \"status\": 200,\n    \"data\": {\n        \"_id\": \"659946d315ee83b8bfcb111c\",\n        \"title\": \"Full-Stack Developer\",\n        \"description\": \"We are looking for a qualified Backend Developer to join our Team. He/She is responsible for building the‘server-side’ of the project's web applications. He/She should also be able to develop and maintainfunctional and stable web applications to ensure system consistency and improve user experience.\",\n        \"company\": \"Aureus Group\",\n        \"salary\": {\n            \"currency\": \"SGD\",\n            \"type\": \"ranged\",\n            \"value\": \"6000-7000\"\n        },\n        \"images\": [\n            {\n                \"title\": \"Example\",\n                \"url\": \"https://picsum.photos/200/300\"\n            }\n        ],\n        \"isActive\": false,\n        \"createdAt\": \"2024-01-06T12:25:55.196Z\",\n        \"updatedAt\": \"2024-01-06T12:28:12.832Z\"\n    }\n}\n\n ```\n\n#### Failed Response Example\n\n``` json\n{\n    \"status\": 404,\n    \"message\": \"Failed to remove job, data is not found!\"\n}\n\n ```\n\n``` json\n{\n    \"status\": 401,\n    \"message\": \"\\\"exp\\\" claim timestamp check failed\",\n    \"data\": {\n        \"code\": \"ERR_JWT_EXPIRED\",\n        \"name\": \"JWTExpired\",\n        \"claim\": \"exp\",\n        \"reason\": \"check_failed\"\n    }\n}\n\n ```\n\n``` json\n{\n    \"message\": \"payload/parameter validation error\",\n    \"data\": {\n        \"params\": [\n            {\n                \"message\": \"The id must be an objectId\",\n                \"field\": \"id\",\n                \"type\": \"objectId\",\n                \"expected\": \"objectId\",\n                \"actual\": \"6598ca99314273b13f63da99f\"\n            }\n        ]\n    },\n    \"status\": 400\n}\n\n ```",
+        "operationId": "updateJobById",
+        "summary": "Update Job By ID"
+      }
+    },
+    "/api/jobs/{jobId}/apply": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "jobId",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "_id": {
+                      "example": "6599451615ee83b8bfcb1118",
+                      "type": "string"
+                    },
+                    "company": {
+                      "example": "Aureus Group",
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "example": "2024-01-06T12:18:30.741Z",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "We are looking for a qualified Backend Developer to join our Team. He/She is responsible for building the‘server-side’ of the project's web applications. He/She should also be able to develop and maintainfunctional and stable web applications to ensure system consistency and improve user experience.",
+                      "type": "string"
+                    },
+                    "images": {
+                      "example": [
+                        {
+                          "title": "Example",
+                          "url": "https://picsum.photos/200/300"
+                        }
+                      ],
+                      "items": {
+                        "properties": {
+                          "title": {
+                            "example": "Example",
+                            "type": "string"
+                          },
+                          "url": {
+                            "example": "https://picsum.photos/200/300",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "isActive": {
+                      "example": true,
+                      "type": "boolean"
+                    },
+                    "salary": {
+                      "properties": {
+                        "currency": {
+                          "example": "SGD",
+                          "type": "string"
+                        },
+                        "type": {
+                          "example": "fixed",
+                          "type": "string"
+                        },
+                        "value": {
+                          "example": "6000",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "title": {
+                      "example": "Back-End Developer",
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "example": "2024-01-06T12:48:01.609Z",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "success applied to the job!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Failed Already applied",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "you already applied for this job!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 400,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Failed Not Found",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Failed to get job info, data not found!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 404,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Jobs"
+        ],
+        "description": "# Apply Job by ID\n\nThis API endpoint allows users to mark a specific job to be applied by them. The request does not require a request body.\n\n## Request\n\n### Request Parameters\n\n- `jobId` (path parameter): The ID of the job for which the information is requested. Should be an onjectID / BSON.\n    \n\n### Response\n\n- `message` (string): A message indicating the status of the request.\n- `status` (number): The status code of the response.\n- `data` (object): An object containing the details of the job.\n    - `_id` (string): The unique ID of the job.\n    - `title` (string): The title of the job.\n    - `description` (string): A description of the job.\n    - `company` (string): The name of the company offering the job.\n    - `salary` (object): An object containing salary details.\n        - `currency` (string): The currency in which the salary is denominated.\n        - `type` (string): The type of salary (e.g., fixed, variable).\n        - `value` (string): The value of the salary.\n    - `images` (array): An array of objects containing image details related to the job.\n        - `title` (string): The title of the image.\n        - `url` (string): The URL of the image.\n    - `isActive` (boolean): Indicates whether the job is active.\n    - `createdAt` (string): The date and time when the job was created.\n    - `updatedAt` (string): The date and time when the job was last updated.\n\n#### Success Response Example\n\n``` json\n{\n    \"message\": \"success applied to the job!\",\n    \"status\": 200,\n    \"data\": {\n        \"_id\": \"6599451615ee83b8bfcb1118\",\n        \"title\": \"Back-End Developer\",\n        \"description\": \"We are looking for a qualified Backend Developer to join our Team...\",\n        \"company\": \"Aureus Group\",\n        \"salary\": {\n            \"currency\": \"SGD\",\n            \"type\": \"fixed\",\n            \"value\": \"6000\"\n        },\n        \"images\": [\n            {\n                \"title\": \"Example\",\n                \"url\": \"https://picsum.photos/200/300\"\n            }\n        ],\n        \"isActive\": true,\n        \"createdAt\": \"2024-01-06T12:18:30.741Z\",\n        \"updatedAt\": \"2024-01-06T12:48:01.609Z\"\n    }\n}\n\n ```\n\n#### Success Response Example\n\n#### Failed Response Example\n\n``` json\n{\n    \"status\": 400,\n    \"message\": \"you already applied for this job!\"\n}\n\n ```\n\n``` json\n{\n    \"status\": 404,\n    \"message\": \"Failed to get job info, data not found!\"\n}\n\n ```\n\n``` json\n{\n    \"status\": 401,\n    \"message\": \"\\\"exp\\\" claim timestamp check failed\",\n    \"data\": {\n        \"code\": \"ERR_JWT_EXPIRED\",\n        \"name\": \"JWTExpired\",\n        \"claim\": \"exp\",\n        \"reason\": \"check_failed\"\n    }\n}\n\n ```",
+        "operationId": "applyJob",
+        "summary": "Apply Job"
+      }
+    },
+    "/api/users": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "orderBy",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "orderAsc",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - Get All Users",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "example": [
+                    {
+                      "_id": "659932843a4f246a3922edbf",
+                      "createdAt": "2024-01-06T10:59:16.187Z",
+                      "email": "iksandi@lojaya.co",
+                      "firstName": "Iksandi",
+                      "lastName": "Lojaya",
+                      "role": "User",
+                      "updatedAt": "2024-01-06T10:59:16.187Z"
+                    },
+                    {
+                      "_id": "65992ba39f1d0024b4459e3c",
+                      "createdAt": "2024-01-06T10:29:55.593Z",
+                      "email": "iksandi@lojaya.com",
+                      "firstName": "Iksandi",
+                      "lastName": "Lojaya",
+                      "role": "Admin",
+                      "updatedAt": "2024-01-06T12:01:40.937Z"
+                    }
+                  ],
+                  "items": {
+                    "properties": {
+                      "_id": {
+                        "example": "659932843a4f246a3922edbf",
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "example": "2024-01-06T10:59:16.187Z",
+                        "type": "string"
+                      },
+                      "email": {
+                        "example": "iksandi@lojaya.co",
+                        "type": "string"
+                      },
+                      "firstName": {
+                        "example": "Iksandi",
+                        "type": "string"
+                      },
+                      "lastName": {
+                        "example": "Lojaya",
+                        "type": "string"
+                      },
+                      "role": {
+                        "example": "User",
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "example": "2024-01-06T10:59:16.187Z",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "message": {
+                  "example": "success listing users!",
+                  "type": "string"
+                },
+                "meta": {
+                  "properties": {
+                    "count": {
+                      "example": 2,
+                      "type": "number"
+                    },
+                    "orderAsc": {
+                      "example": false,
+                      "type": "boolean"
+                    },
+                    "orderBy": {
+                      "example": "createdAt",
+                      "type": "string"
+                    },
+                    "page": {
+                      "example": 1,
+                      "type": "number"
+                    },
+                    "pageSize": {
+                      "example": 4,
+                      "type": "number"
+                    },
+                    "pages": {
+                      "example": 1,
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Failed - Expired JWT",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "claim": {
+                      "example": "exp",
+                      "type": "string"
+                    },
+                    "code": {
+                      "example": "ERR_JWT_EXPIRED",
+                      "type": "string"
+                    },
+                    "name": {
+                      "example": "JWTExpired",
+                      "type": "string"
+                    },
+                    "reason": {
+                      "example": "check_failed",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "\"exp\" claim timestamp check failed",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 401,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "Failed - Forbidden Access",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Forbidden access",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 403,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "description": "# Get All Users\n\nThis endpoint retrieves a list of users with the specified page size, page number, and ordering criteria. This endpoint require authentication and user with **Admin** role.\n\n## Request\n\n`GET /api/users`\n\n### Request Parameters\n\n- `pageSize` (number): The number of users to be displayed per page. Default to 10.\n- `page` (number): The page number of the user list to be retrieved. Default to 1.\n- `orderBy` (string): The field by which the users are ordered. Available fields (id, email, firstName, lastName, role, createdAt, updatedAt). Default to `createdAt`\n- `orderAsc` (boolean): Indicates whether the users are ordered in ascending order. Default to false.\n- `search` (string): Search string, minimun 3 characters.\n    \n\n### Response\n\n- `message` (string): A message indicating the status of the request.\n- `status` (number): The status code of the response.\n- `data` (array): An array of user objects containing their details such as ID, email, first name, last name, role, creation date, and update date.\n    - `_id` (string): The unique identifier of the user.\n    - `email` (string): The email address of the user.\n    - `firstName` (string): The first name of the user.\n    - `lastName` (string): The last name of the user.\n    - `role` (string): The role of the user.\n    - `createdAt` (string): The date and time when the user was created.\n    - `updatedAt` (string): The date and time when the user was last updated.\n- `meta` (object): Additional metadata about the user list.\n    - `page` (number): The current page number.\n    - `count` (number): The total count of users.\n    - `pages` (number): The total number of pages.\n    - `pageSize` (number): The number of users per page.\n    - `orderBy` (string): The field by which the users are ordered.\n    - `orderAsc` (boolean): Indicates whether the users are ordered in ascending order.\n\n#### Success Response Example\n\n``` json\n{\n    \"message\": \"success listing users!\",\n    \"status\": 200,\n    \"data\": [\n        {\n            \"_id\": \"659932843a4f246a3922edbf\",\n            \"email\": \"iksandi@lojaya.co\",\n            \"firstName\": \"Iksandi\",\n            \"lastName\": \"Lojaya\",\n            \"role\": \"User\",\n            \"createdAt\": \"2024-01-06T10:59:16.187Z\",\n            \"updatedAt\": \"2024-01-06T10:59:16.187Z\"\n        },\n        {\n            \"_id\": \"65992ba39f1d0024b4459e3c\",\n            \"email\": \"iksandi@lojaya.com\",\n            \"firstName\": \"Iksandi\",\n            \"lastName\": \"Lojaya\",\n            \"role\": \"Admin\",\n            \"createdAt\": \"2024-01-06T10:29:55.593Z\",\n            \"updatedAt\": \"2024-01-06T12:01:40.937Z\"\n        }\n    ],\n    \"meta\": {\n        \"page\": 1,\n        \"count\": 2,\n        \"pages\": 1,\n        \"pageSize\": 4,\n        \"orderBy\": \"createdAt\",\n        \"orderAsc\": false\n    }\n}\n\n ```\n\n#### Failed Response Example\n\n``` json\n{\n    \"status\": 400,\n    \"message\": \"email iksandi@lojaya.co is already registered\"\n}\n\n ```\n\n``` json\n{\n    \"status\": 403,\n    \"message\": \"Forbidden access\"\n}\n\n ```",
+        "operationId": "getAllUsers",
+        "summary": "Get All Users"
+      }
+    },
+    "/api/users/self": {
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "success destroying your account!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Failed",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "claim": {
+                      "example": "exp",
+                      "type": "string"
+                    },
+                    "code": {
+                      "example": "ERR_JWT_EXPIRED",
+                      "type": "string"
+                    },
+                    "name": {
+                      "example": "JWTExpired",
+                      "type": "string"
+                    },
+                    "reason": {
+                      "example": "check_failed",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "\"exp\" claim timestamp check failed",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 401,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "description": "# Self Delete User\n\nThis endpoint is used to delete the user's own account.\n\n#### Request\n\n`DELETE /api/users/self`\n\n#### Response\n\n- Status: 200\n- Body:\n    \n    ``` json\n          {\n              \"message\": \"success destroying your account!\",\n              \"status\": 200\n          }\n    \n     ```",
+        "operationId": "selfRemoveProfile",
+        "summary": "[Self] Remove Profile"
+      },
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success - Get Self Profile",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "email": {
+                      "example": "iksandi@lojaya.com",
+                      "type": "string"
+                    },
+                    "firstName": {
+                      "example": "Iksandi",
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "example": "Lojaya",
+                      "type": "string"
+                    },
+                    "role": {
+                      "example": "User",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "success get profile info!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Failed - Self Get Profile need token",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Missing authentication header",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 401,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "description": "# Get Self Profile Information\n\nThis endpoint retrieves the profile information of the authenticated user.\n\n## Request\n\n`GET /api/users/self`\n\n### Request Body\n\nThis request does not require a request body.\n\n## Response\n\n- `message` (string): A message indicating the status of the request.\n- `status` (integer): The HTTP status code of the response.\n- `data` (object): An object containing the user's profile information.\n    - `firstName` (string): The first name of the user.\n    - `lastName` (string): The last name of the user.\n    - `email` (string): The email address of the user.\n    - `role` (string): The role of the user.\n\n### Success Response Example\n\n``` json\n{\n    \"message\": \"success get profile info!\",\n    \"status\": 200,\n    \"data\": {\n        \"firstName\": \"Iksandi\",\n        \"lastName\": \"Lojaya\",\n        \"email\": \"iksandi@lojaya.com\",\n        \"role\": \"User\"\n    }\n}\n\n ```\n\n### Failed Response Example\n\n``` json\n{\n    \"status\": 401,\n    \"message\": \"Missing authentication header\"\n}\n\n ```",
+        "operationId": "selfGetProfile",
+        "summary": "[Self] Get Profile"
+      },
+      "patch": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "properties": {
+                "confirmPassword": {
+                  "example": "12345678",
+                  "type": "string"
+                },
+                "email": {
+                  "example": "iksandi@lojaya.com",
+                  "type": "string"
+                },
+                "firstName": {
+                  "example": "Iksandi Rename",
+                  "type": "string"
+                },
+                "password": {
+                  "example": "12345678",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success - Update Self Profile",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "email": {
+                      "example": "iksandi@lojaya.com",
+                      "type": "string"
+                    },
+                    "firstName": {
+                      "example": "Iksandi Rename",
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "example": "Lojaya",
+                      "type": "string"
+                    },
+                    "role": {
+                      "example": "User",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "success update profile info!",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 200,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Failed - Update Self Profile (email should be unique)",
+            "headers": {
+              "Content-Length": {
+                "type": "string"
+              }
+            },
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "email iksandi@lojaya.co is already registered",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 400,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "description": "# Update Self Profile Information\n\nThis endpoint allows users to update their profile information via a PATCH request. The request should be sent to /api/users/self with a raw request body containing the fields `email`, `firstName`, `lastName`, `password`, and `confirmPassword`. All fields are optional, `confirmPassword` became required if `password` field filled. Email address can be changed as long as its still available (not registered in the system).\n\n## Request\n\n`PATCH /api/users/self`\n\n### Request Body\n\n- `email` (text, optional): The user's email address.\n- `firstName` (text, optional): The user's first name.\n- `lastName` (text, optional): The user's last name.\n- `password` (text, optional): The user's password.\n- confirmPassword (text, optional, required when `password` field filled): The confirmation of the user's password.\n    \n\n### Example\n\n``` json\n{\n    \"firstName\": \"Iksandi\",\n    \"lastName\": \"Lojaya\",\n    \"email\": \"user@example.com\",\n}\n\n ```\n\n### Response\n\n#### Success Response Example\n\n``` json\n{\n    \"message\": \"success update profile info!\",\n    \"status\": 200,\n    \"data\": {\n        \"firstName\": \"Iksandi Rename\",\n        \"lastName\": \"Lojaya\",\n        \"email\": \"iksandi@lojaya.com\",\n        \"role\": \"User\"\n    }\n}\n\n ```\n\n### Failed Response Example\n\n``` json\n{\n    \"message\": \"payload/parameter validation error\",\n    \"data\": {\n        \"body\": [\n            {\n                \"message\": \"The 'confirmPassword' field is required.\",\n                \"field\": \"confirmPassword\",\n                \"type\": \"required\"\n            }\n        ]\n    },\n    \"status\": 400\n}\n\n ```\n\n``` json\n{\n    \"status\": 400,\n    \"message\": \"email iksandi@lojaya.co is already registered\"\n}\n\n ```",
+        "operationId": "selfUpdateProfile",
+        "summary": "[Self] Update Profile"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Jobs"
+    }
+  ]
+}
