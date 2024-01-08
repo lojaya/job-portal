@@ -29,7 +29,7 @@ cp .env.example .env
 
 * Build and run the project (using ts-node)
 ```shell
-yarn start
+yarn dev
 ```
 
 Navigate to http://localhost:3000
@@ -40,6 +40,17 @@ Swagger UI endpoint: http://localhost:3000/swagger/api-docs
 
 GitHub repository: https://github.com/lojaya/job-portal
 
+Example admin user
+```
+email: iksandi@lojaya.com
+password: 12345678
+```
+
+Example normal user 
+```
+email: iksandi@lojaya.co
+password: 12345678
+```
 
 ## Project Structure
 The folder structure of this app is explained below:
