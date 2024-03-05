@@ -1,5 +1,6 @@
 import express from 'express';
 import { authenticate } from '../middlewares/auth';
+import * as authCheckUsecase from '../usecases/auth.check';
 import * as authDestroyUsecase from '../usecases/auth.destroy';
 import * as authRefreshUsecase from '../usecases/auth.refresh';
 import * as signInUsecase from '../usecases/auth.signin';
@@ -28,5 +29,8 @@ router.post(
 	authenticate({ shouldVerify: false }),
 	authRefreshUsecase.handler,
 );
+
+// check token - verify access token and get user data
+router.get('/check', authenticate(), authCheckUsecase.handler);
 
 export = router;
